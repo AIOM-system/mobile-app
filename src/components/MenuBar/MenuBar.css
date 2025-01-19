@@ -1,0 +1,9 @@
+.menu-avatar {
+  --padding-start: 0;
+  --inner-padding-end: 0;
+  --background: transparent;
+}
+
+.menu-logo {
+  --background: transparent;
+}

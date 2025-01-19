@@ -1,12 +1,70 @@
-import './ExploreContainer.css';
+import {
+  IonFab,
+  IonFabButton,
+  IonIcon,
+  useIonViewDidEnter,
+  useIonViewDidLeave,
+  useIonViewWillEnter,
+  useIonViewWillLeave,
+} from '@ionic/react';
+import { useHistory } from 'react-router-dom';
 
-interface ContainerProps { }
+import "./ExploreContainer.css";
+import { useStorage } from "../hooks/useStorage";
+import { stringifySafe } from "../helpers/common";
+import { logOut } from "ionicons/icons";
+import { useAuth } from "../hooks";
+
+interface ContainerProps {}
 
 const ExploreContainer: React.FC<ContainerProps> = () => {
+  const { isAuthenticated, user } = useAuth();
+  const storage = useStorage();
+  const history = useHistory();
+
+  useIonViewDidEnter(() => {
+    console.log('ionViewDidEnter event fired');
+  });
+
+  useIonViewDidLeave(() => {
+    console.log('ionViewDidLeave event fired');
+  });
+
+  useIonViewWillEnter(() => {
+    console.log('ionViewWillEnter event fired');
+  });
+
+  useIonViewWillLeave(() => {
+    console.log('ionViewWillLeave event fired');
+  });
+
+  const handleLogout = async () => {
+    if(!storage) return;
+
+    await storage.clear();
+    history.push('/login');
+  }
+
   return (
     <div id="container">
-      <strong>Ready to create an app?</strong>
-      <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+      <strong>{stringifySafe(user)}</strong>
+      <p>
+        {isAuthenticated ? 'Authenticated' : 'Not Authenticated'}
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://ionicframework.com/docs/components"
+        >
+          UI Components
+        </a>
+      </p>
+      <p>
+        <IonFab horizontal="center">
+          <IonFabButton className="fab-center" onClick={handleLogout}>
+            <IonIcon icon={logOut} />
+          </IonFabButton>
+        </IonFab>
+      </p>
     </div>
   );
 };
