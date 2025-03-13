@@ -1,0 +1,1 @@
+"cordova-sqlite-storage": "^6.1.0",

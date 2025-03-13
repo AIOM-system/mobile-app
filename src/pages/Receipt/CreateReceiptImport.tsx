@@ -28,17 +28,19 @@ import { Toast } from "@capacitor/toast";
 import { getDate } from "@/helpers/date";
 import dayjs from "dayjs";
 import clsx from "clsx";
-import DatePicker from "@/components/DatePicker";
+import { ChevronDown } from "lucide-react";
 import { OverlayEventDetail } from "@ionic/react/dist/types/components/react-component-lib/interfaces";
+import { BarcodeScanner } from "@capacitor-mlkit/barcode-scanning";
+
+import { formatCurrency } from "@/helpers/formatters";
+import useReceiptImport from "@/hooks/apis/useReceiptImport";
+
+import DatePicker from "@/components/DatePicker";
 import ModalSelectProduct from "./components/ModalSelectProduct";
+import ReceiptItem from "./components/ReceiptItem";
+import ModalSelectSupplier from "./components/ModalSelectSupplier";
 
 import "./CreateReceiptImport.css";
-import { BarcodeScanner } from "@capacitor-mlkit/barcode-scanning";
-import { formatCurrency } from "@/helpers/formatters";
-import ReceiptItem from "./components/ReceiptItem";
-import { ChevronDown } from "lucide-react";
-import ModalSelectSupplier from "./components/ModalSelectSupplier";
-import useReceiptImport from "@/hooks/apis/useReceiptImport";
 
 const initialDefaultItem = {
   note: "",
@@ -109,7 +111,7 @@ const CreateReceiptImportScreen: React.FC = () => {
 
   const totalAmount = useMemo(() => {
     return receiptItems.reduce((total, row) => {
-      return total + row.quantity * row.costPrice * (1 - row.discount / 100);
+      return total + row.totalPrice;
     }, 0);
   }, [receiptItems]);
 
@@ -205,14 +207,16 @@ const CreateReceiptImportScreen: React.FC = () => {
   };
 
   const handleSubmit = async (type: "draft" | "active") => {
-    const newItems = receiptItems.map((item) => ({
-      productId: item.id,
-      productCode: item.productCode,
-      productName: item.productName,
-      quantity: item.quantity,
-      costPrice: item.costPrice,
-      discount: item.discount,
-    }));
+    const newItems = receiptItems.map((item) => {
+      return {
+        productId: item.id,
+        productCode: item.productCode,
+        productName: item.productName,
+        quantity: item.quantity,
+        costPrice: item.totalPrice,
+        discount: item.discount,
+      };
+    });
 
     const newFormData = {
       ...formData,
@@ -222,6 +226,7 @@ const CreateReceiptImportScreen: React.FC = () => {
       totalProduct: newItems.length,
       items: newItems,
       status: type === "draft" ? "draft" : "processing",
+      supplier: formData.supplier.split("__")[0],
     };
 
     try {
@@ -299,7 +304,7 @@ const CreateReceiptImportScreen: React.FC = () => {
           </IonToolbar>
         </IonHeader>
 
-        <IonCard className="p-2">
+        <IonCard className="p-2 mt-2">
           <IonCardContent>
             <div className="flex justify-between items-center">
               <IonText color="medium">
@@ -360,7 +365,7 @@ const CreateReceiptImportScreen: React.FC = () => {
               <IonLabel position="stacked">Chọn nhà cung cấp *</IonLabel>
               <button className="w-full p-4 rounded-lg border border-gray-300 text-left flex items-center justify-between">
                 <span className="text-gray-500">
-                  {formData.supplier || "Nhà cung cấp"}
+                  {formData.supplier ? formData.supplier.split("__")[1] : "Nhà cung cấp"}
                 </span>
                 <ChevronDown className="h-5 w-5 text-gray-400" />
               </button>

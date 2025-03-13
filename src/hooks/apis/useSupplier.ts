@@ -13,7 +13,7 @@ const useSupplier = () => {
     );
     return response.data;
   };
-  
+
   return {
     getList,
   };

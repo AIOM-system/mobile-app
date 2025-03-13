@@ -2,15 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* In your CSS file */
-/* .tab-selected {
-  color: #3880ff;
-}
-
-.tab-selected ion-icon {
-  color: #3880ff;
-} */
-
 @layer base {
   * {
     @apply border-border;

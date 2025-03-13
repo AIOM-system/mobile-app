@@ -1,0 +1,129 @@
+/* Custom styles for ProductDetail page */
+.product-detail-page {
+  --ion-background-color: #f8fafc;
+}
+
+ion-card {
+  margin: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+ion-input, ion-textarea {
+  --padding-start: 0;
+  --background: transparent;
+}
+
+ion-button.button-outline {
+  --border-color: #e2e8f0;
+  --border-width: 1px;
+  --border-style: solid;
+}
+
+/* Add padding bottom to content to account for fixed buttons */
+ion-content {
+  --padding-bottom: 80px;
+}
+
+/* Custom chip styles */
+ion-chip {
+  margin: 0;
+  height: 28px;
+}
+
+/* Custom badge styles */
+ion-badge {
+  padding: 6px 12px;
+  border-radius: 12px;
+}
+
+/* Custom input styles */
+.native-input {
+  padding: 0 !important;
+}
+
+/* Custom button styles */
+.fixed-bottom-buttons {
+  background: white;
+  border-top: 1px solid #e2e8f0;
+  padding: 16px;
+}
+
+/* Action Sheet Custom Styles */
+.action-sheet-button {
+  --button-color: #1f2937;
+  height: 48px;
+  font-size: 16px;
+}
+
+.action-sheet-destructive {
+  --button-color: #dc2626;
+  height: 48px;
+  font-size: 16px;
+}
+
+.action-sheet-cancel {
+  --button-color: #6b7280;
+  height: 48px;
+  font-size: 16px;
+}
+
+/* Override Ionic's default action sheet styles */
+ion-action-sheet.action-sheet-wrapper {
+  --background: #ffffff;
+  --backdrop-opacity: 0.6;
+}
+
+ion-action-sheet .action-sheet-group {
+  border-radius: 16px;
+  margin: 8px 16px;
+}
+
+ion-action-sheet .action-sheet-button {
+  padding: 16px;
+}
+
+ion-action-sheet .action-sheet-icon {
+  font-size: 24px;
+  margin-right: 32px;
+}
+
+/* Loading Spinner Styles */
+ion-spinner {
+  width: 16px;
+  height: 16px;
+}
+
+/* Load More Button Styles */
+ion-button.load-more {
+  --color: var(--ion-color-primary);
+  font-size: 14px;
+  height: 36px;
+}
+
+/* Segment Styles */
+ion-segment {
+  --background: #f3f4f6;
+  border-radius: 8px;
+  padding: 4px;
+}
+
+ion-segment-button {
+  --background-checked: #ffffff;
+  --color-checked: #3b82f6;
+  --indicator-color: transparent;
+  min-height: 40px;
+  --border-radius: 6px;
+  font-size: 14px;
+}
+
+/* List Styles */
+ion-item {
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --inner-padding-end: 0;
+}
+
+/* Chip Status Styles */
+ion-chip {
+  margin: 0;
+}

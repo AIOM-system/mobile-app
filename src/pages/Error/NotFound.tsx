@@ -21,7 +21,7 @@ const NotFound: React.FC = () => {
         <div id="container">
           <h1 className="text-xl">404 - Page not found</h1>
           <p>
-            <IonButton routerLink="/" routerDirection="none">
+            <IonButton routerLink="/tabs/home" routerDirection="none">
               <IonIcon icon={arrowBackOutline} />
               Trở về trang chủ
             </IonButton>

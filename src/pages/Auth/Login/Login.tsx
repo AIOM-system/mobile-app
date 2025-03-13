@@ -18,33 +18,41 @@ import {
 import { useHistory } from "react-router-dom";
 import "./Login.css";
 import { useAuth } from "../../../hooks";
+import { Toast } from "@capacitor/toast";
 
 const Login: React.FC = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [formData, setFormData] = useState({
+    username: "",
+    password: "",
+  });
   const [error, setError] = useState("");
   const { login } = useAuth();
   const history = useHistory();
 
   const handleLogin = async () => {
     try {
+      const { username, password } = formData;
+
       if (!username || !password) {
         return setError("Vui lòng nhập đầy đủ thông tin");
       }
 
       const response = await login(username, password);
 
-      if (response.statusCode !== 200) {
-        return setError(JSON.stringify({ username, password, response }));
+      if (response.statusCode !== 200 || !response.data) {
+        return setError(JSON.stringify(response));
       }
 
-      setUsername("");
-      setPassword("");
+      setFormData({ username: "", password: "" });
       setError("");
 
-      setTimeout(() => {
-        history.push("/tabs/home");
-      }, 600);
+      await Toast.show({
+        text: "Đăng nhập thành công",
+        duration: "short",
+        position: "center",
+      });
+
+      history.push("/tabs/home");
     } catch (error: any) {
       setError(error.message);
     }
@@ -79,8 +87,12 @@ const Login: React.FC = () => {
                   labelPlacement="stacked"
                   errorText="Tên đăng nhập không hợp lệ"
                   debounce={500}
-                  value={username}
-                  onIonChange={(e) => setUsername(e.detail.value!)}
+                  onIonInput={(e) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      username: e.target.value as string,
+                    }))
+                  }
                 />
               </IonItem>
             </IonCol>
@@ -96,8 +108,12 @@ const Login: React.FC = () => {
                   errorText="Mật khẩu không đúng"
                   clearInput
                   debounce={400}
-                  value={password}
-                  onIonInput={(e) => setPassword(e.detail.value!)}
+                  onIonInput={(e) => 
+                    setFormData((prev) => ({
+                      ...prev,
+                      password: e.target.value as string,
+                    }))
+                  }
                 >
                   <IonInputPasswordToggle slot="end" color="dark" />
                 </IonInput>

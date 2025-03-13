@@ -22,6 +22,7 @@ import { Redirect, Route } from "react-router-dom";
 import MenuLayout from "../Layout/MenuLayout";
 import HomeScreen from "../../pages/Home/Home";
 import InventoryScreen from "../../pages/Inventory/Inventory";
+import ProductListScreen from "../../pages/Product/ProductList/ProductList";
 import ProductDetailScreen from "../../pages/Product/ProductDetail/ProductDetail";
 import TransactionScreen from "@/pages/Transaction/TransactionList";
 
@@ -48,7 +49,7 @@ const TabBar: React.FC = () => {
         <Route
           exact
           path="/tabs/home"
-          children={<MenuLayout component={<HomeScreen />} isHeaderDefault />}
+          children={<MenuLayout component={<HomeScreen />} isHeaderDefault title="Trang chủ" />}
         />
 
 
@@ -56,7 +57,7 @@ const TabBar: React.FC = () => {
         <Route
           exact
           path="/tabs/transaction"
-          children={<MenuLayout component={<TransactionScreen />} isHeaderDefault />}
+          children={<MenuLayout component={<TransactionScreen />} isHeaderDefault title="Giao dịch" />}
         />
 
         {/* Inventory Screens */}
@@ -74,7 +75,12 @@ const TabBar: React.FC = () => {
         />
 
         {/* Product Screens */}
-        <Route exact path="/tabs/product" component={ProductDetailScreen} />
+        <Route
+          exact
+          path="/tabs/product"
+          children={<MenuLayout component={<ProductListScreen />} isHeaderDefault title="Danh sách sản phẩm" />}
+        />
+        <Route exact path="/tabs/product/:id" component={ProductDetailScreen} />
 
         <Route exact path="/tabs">
           <Redirect to="/tabs/home" />

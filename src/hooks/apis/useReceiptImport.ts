@@ -11,7 +11,7 @@ const useReceiptImport = () => {
     const response = await request.get(
       `/receipt-imports?${query.toString()}&page=${page}&limit=${limit}`
     );
-    return response.data;
+    return response?.data || [];
   };
 
   const getDetail = async (id: string) => {

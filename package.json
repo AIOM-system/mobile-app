@@ -5,13 +5,13 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "vite:build": "tsc && vite build",
     "preview": "vite preview",
     "test.e2e": "cypress run",
     "test.unit": "vitest",
     "lint": "eslint",
     "sync": "ionic cap sync",
-    "build:all": "ionic build",
+    "build": "ionic build",
     "build:ios": "ionic build --platform=ios",
     "build:android": "ionic build --platform=android",
     "start:ios": "ionic cap run ios -l --external --target=00008110-000E358C0E07801E"
@@ -34,17 +34,20 @@
     "@types/react-router": "^5.1.20",
     "@types/react-router-dom": "^5.3.3",
     "axios": "^1.7.9",
+    "barcode-detector": "^3.0.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "cordova-sqlite-storage": "^6.1.0",
+    "cordova-sqlite-storage": "^7.0.0",
     "dayjs": "^1.11.13",
     "ionicons": "^7.0.0",
     "localforage-cordovasqlitedriver": "^1.8.0",
     "lucide-react": "^0.469.0",
     "react": "^18.2.0",
+    "react-barcode": "^1.5.3",
     "react-dom": "^18.2.0",
     "react-router": "^5.3.4",
     "react-router-dom": "^5.3.4",
+    "swiper": "^11.2.5",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7"
   },
@@ -68,7 +71,8 @@
     "terser": "^5.4.0",
     "typescript": "^5.1.6",
     "vite": "~5.2.0",
+    "vite-plugin-pwa": "^0.21.1",
     "vitest": "^0.34.6"
   },
-  "description": "An Ionic project"
+  "description": "AIOM System Mobile App"
 }

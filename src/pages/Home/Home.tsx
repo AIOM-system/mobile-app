@@ -20,7 +20,7 @@ const HomeScreen: React.FC = () => {
           </p>
           <IonButton
             expand="block"
-            routerLink="/tabs/inventory"
+            routerLink="/tabs/product"
             className="mt-4"
           >
             View Products

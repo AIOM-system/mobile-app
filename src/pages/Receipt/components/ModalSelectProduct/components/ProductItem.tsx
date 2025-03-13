@@ -36,6 +36,7 @@ const ProductItem: React.FC<ItemListProps> = ({
           inventory,
           unit,
           quantity: 1,
+          totalPrice: costPrice,
         })
       }
     >

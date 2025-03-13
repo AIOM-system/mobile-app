@@ -74,11 +74,11 @@ const ModalSelectProduct: React.FC<Props> = ({ dismiss }) => {
           enterKeyHint="done"
           debounce={500}
         />
-        <IonButtons slot="end">
+        {/* <IonButtons slot="end">
           <IonButton color="primary">
             <IonIcon icon={filterOutline} slot="icon-only" />
           </IonButton>
-        </IonButtons>
+        </IonButtons> */}
       </div>
 
       <IonList>

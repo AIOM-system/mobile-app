@@ -68,7 +68,7 @@ const ReceiptItem: FC<Props> = ({
   useEffect(() => {
     if (typeof newCostPrice === "number" && typeof newDiscount === "number") {
       if (typeof quantity === "number") {
-        const total = quantity * newCostPrice * (1 - newDiscount / 100);
+        const totalPrice = quantity * newCostPrice * (1 - newDiscount / 100);
         onRowChange?.({
           id,
           productCode,
@@ -77,7 +77,7 @@ const ReceiptItem: FC<Props> = ({
           quantity,
           costPrice: newCostPrice,
           discount: newDiscount,
-          total,
+          totalPrice,
         });
       }
     }

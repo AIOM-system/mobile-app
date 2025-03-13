@@ -4,14 +4,13 @@ import {
   IonRefresher,
   IonRefresherContent,
   RefresherEventDetail,
-  IonInfiniteScroll,
-  IonInfiniteScrollContent,
 } from "@ionic/react";
 import { Toast } from "@capacitor/toast";
 import { chevronDownCircleOutline } from "ionicons/icons";
 
 import useReceiptImport from "@/hooks/apis/useReceiptImport";
 import ItemListItem from "./components/ItemList";
+import { ReceiptListSkeleton } from "./components/ReceiptListSkeleton";
 
 interface ItemList {
   id: string;
@@ -34,8 +33,6 @@ const ReceiptImportList: React.FC<Props> = ({ keyword }) => {
 
   const fetchReceiptImports = async () => {
     try {
-      if (keyword && keyword.length < 3) return;
-
       const response = await getListReceiptImport(
         {
           keyword,
@@ -64,7 +61,7 @@ const ReceiptImportList: React.FC<Props> = ({ keyword }) => {
 
   useEffect(() => {
     fetchReceiptImports();
-  }, [keyword]);
+  }, []);
 
   const handleRefresh = (event: CustomEvent<RefresherEventDetail>) => {
     fetchReceiptImports().finally(() => {
@@ -84,20 +81,24 @@ const ReceiptImportList: React.FC<Props> = ({ keyword }) => {
       </IonRefresher>
 
       <IonList>
-        {!!receiptImports.length &&
-          receiptImports.map((item) => (
-            <ItemListItem key={item.id} {...item} />
-          ))}
+        {!!receiptImports.length ? (
+          receiptImports.map((item) => <ItemListItem key={item.id} {...item} />)
+        ) : (
+          <>
+            <ReceiptListSkeleton />
+            <ReceiptListSkeleton />
+            <ReceiptListSkeleton />
+          </>
+        )}
       </IonList>
 
-      <IonInfiniteScroll
+      {/* <IonInfiniteScroll
         onIonInfinite={(ev) => {
-          console.log({ ev });
           setTimeout(() => ev.target.complete(), 500);
         }}
       >
         <IonInfiniteScrollContent></IonInfiniteScrollContent>
-      </IonInfiniteScroll>
+      </IonInfiniteScroll> */}
     </>
   );
 };
